@@ -31,7 +31,7 @@ export class AuthService {
     sessionStorage.removeItem('user');
   }
 
-  isLoggedIn(): boolean {
+  isLogged(): boolean {
     return this.getUser() ? true : false;
   }
 }

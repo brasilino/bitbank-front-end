@@ -1,45 +1,33 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { ExtractComponent } from './extract/extract.component';
+import { IsLoggedGuard } from './shared/guards/is-logged.guard';
+import { IsNotLoggedGuard } from './shared/guards/is-not-logged.guard';
 
-// const routes2: Routes = [{
-//   path: 'home',
-//   component: HomeComponent,
-//   //loadChildren: () => import('path-modulo-da-home').then(m => m.HomeModule)
-//   canActivate: [EstaLogadoGuard]
-// },{
-//   path: 'login',
-//   component: LoginComponent,
-//   canActivate: [NaoEstaLogadoGuard]
-// },{
-//   path: 'extrato',
-//   component: ExtratoComponent,
-//   canActivate: [EstaLogadoGuard]
-// },{
-//   path: 'extrato/transacoes/:idTransacao',
-//   component: DetalheTransacaoComponent,
-//   canActivate: [EstaLogadoGuard]
-// },{
-//   path: 'transferencia',
-//   component: TransferenciaComponent,
-//   canActivate: [EstaLogadoGuard]
-// },{
-//   path: 'nao-encontrado',
-//   component: NaoEncontradoComponent
-// },{
-//   path: '',
-//   pathMatch: 'full',
-//   redirectTo: 'home',
-//   canActivate: [EstaLogadoGuard]
-// },{
-//   path: '**',
-//   redirectTo: 'nao-encontrado'
-// }];
 
-const routes: Routes = [{
-  path: 'login',
-  loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
-}];
+const routes: Routes = [
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
+    canActivate: [IsNotLoggedGuard]
+  },
+  {
+    path: 'extrato',
+    component: ExtractComponent,
+    canActivate: [IsLoggedGuard]
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'extrato',
+    canActivate: [IsLoggedGuard]
+  },
+  {
+    path: '**',
+    redirectTo: 'extrato' // Criar página not-found e redirecionar
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -42,6 +42,12 @@ export class LoginComponent implements OnInit {
     this.matcher = new MyErrorStateMatcher();
   }
 
+  validateForm() {
+    if (this.form.valid) {
+      this.error = null;
+    }
+  }
+
   submit() {
 
     console.log(this.form);
@@ -56,9 +62,9 @@ export class LoginComponent implements OnInit {
     this.loginService.login(cpf, password)
       .subscribe(response => {
         console.log(response);
-        alert('direcionar para extrato');
-        //this.router.navigate(['extrato']);
+        this.router.navigate(['extrato']);
       }, error => {
+        this.form.setValue({password: '', cpf});
         this.error = error;
       });
   }

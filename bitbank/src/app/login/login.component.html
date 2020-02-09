@@ -4,7 +4,9 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
   <p>
     <mat-form-field>
-      <input matInput formControlName="cpf" placeholder="CPF" [errorStateMatcher]="matcher">
+      <input matInput formControlName="cpf" placeholder="CPF" 
+        (keyup)="validateForm()"
+        [errorStateMatcher]="matcher">
       <mat-error *ngIf="form.get('cpf').hasError('required')">
         Campo Obrigatório
       </mat-error>
@@ -13,7 +15,9 @@
 
   <p>
     <mat-form-field>
-      <input matInput formControlName="password" placeholder="Senha" [errorStateMatcher]="matcher">
+      <input matInput formControlName="password" placeholder="Senha" 
+        (keyup)="validateForm()"
+        [errorStateMatcher]="matcher">
       <mat-error *ngIf="form.get('password').hasError('required')">
         Campo Obrigatório
       </mat-error>
