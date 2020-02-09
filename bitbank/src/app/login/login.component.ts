@@ -1,17 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { LoginService } from './login.service';
-
-/** Error when invalid control is dirty, touched, or submitted. */
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
+import { MyErrorStateMatcher } from './my-error-state-matcher';
 
 @Component({
   selector: 'app-login',
@@ -48,25 +40,22 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  submit() {
-
-    console.log(this.form);
+  login() {
 
     if (this.form.valid) {
-      this.login(this.form.value.cpf, this.form.value.password);
-    }
-  }
 
-  login(cpf: string, password: string) {
-    console.log('login');
-    this.loginService.login(cpf, password)
-      .subscribe(response => {
-        console.log(response);
-        this.router.navigate(['extrato']);
-      }, error => {
-        this.form.setValue({password: '', cpf});
-        this.error = error;
-      });
+      const cpf = this.form.value.cpf;
+      const password = this.form.value.password;
+
+      this.loginService.login(cpf, password)
+        .subscribe(response => {
+          console.log(response);
+          this.router.navigate(['extrato']);
+        }, error => {
+          this.form.setValue({password: '', cpf});
+          this.error = error;
+        });
+    }
   }
 
 }
