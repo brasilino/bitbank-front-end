@@ -18,6 +18,11 @@ const routes: Routes = [
     canActivate: [IsLoggedGuard]
   },
   {
+    path: 'transferencia',
+    loadChildren: () => import('./transfer/transfer.module').then(m => m.TransferModule),
+    canActivate: [IsLoggedGuard]
+  },
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: 'extrato',
