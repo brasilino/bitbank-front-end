@@ -17,7 +17,7 @@
           <input matInput placeholder="Ex: 000000-0" formControlName="account" required>
         </mat-form-field>
         <div>
-          <button mat-button (click)="goForward(stepper)">Avançar</button>
+          <button mat-button (click)="getUserToTransfer(stepper)">Avançar</button>
         </div>
       </form>
     </mat-step>
@@ -25,12 +25,12 @@
     <mat-step [stepControl]="secondFormGroup">
         <form [formGroup]="secondFormGroup">
             <ng-template matStepLabel matStepperIcon="edit">Confirmação dos dados</ng-template>
-            <p>Alan Silva Brasilino</p>
-            <p>CPF 111.111.111-11</p>
-            <p>conta 111111-1</p>
+            <p>{{ userToTransfer?.name }}</p>
+            <p>CPF {{ userToTransfer?.cpf }}</p>
+            <p>conta {{ userToTransfer?.account }}</p>
             <mat-form-field>
                 <mat-label>Informe o valor</mat-label>
-                <input matInput formControlName="value" placeholder="Ex: R$ 100,00"
+                <input matInput formControlName="amountToTransfer" placeholder="Ex: R$ 100,00"
                     required>
             </mat-form-field>
             <p class="saldo"><small>Saldo disponível: R$ 56,00</small></p>
@@ -44,13 +44,13 @@
     <mat-step>
         <form [formGroup]="thirdFormGroup">
             <ng-template matStepLabel>Revisão</ng-template>
-            <p>Alan Silva Brasilino</p>
-            <p>CPF 111.111.111-11</p>
-            <p>conta 111111-1</p>
-            <h2>R$ 100,00</h2>
+            <p>{{ userToTransfer?.name }}</p>
+            <p>CPF {{ userToTransfer?.cpf }}</p>
+            <p>conta {{ userToTransfer?.account }}</p>
+            <h2>{{ secondFormGroup.value.amountToTransfer }}</h2>
             <mat-form-field>
                 <mat-label>Identificação do comprovante</mat-label>
-                <input matInput formControlName="identificacao" placeholder="Ex: R$ 100,00">
+                <input matInput formControlName="identification" placeholder="Ex: R$ 100,00">
             </mat-form-field>
             <div>
                 <button mat-button (click)="goBack(stepper)">Voltar</button>
@@ -62,12 +62,14 @@
 
     <mat-step>
         <ng-template matStepLabel>Comprovante</ng-template>
-        <p>Alan Silva Brasilino</p>
-        <p>CPF 111.111.111-11</p>
-        <p>conta 111111-1</p>
-        <h2>R$ 105,00</h2>
+        <p>{{ userToTransfer?.name }}</p>
+        <p>CPF {{ userToTransfer?.cpf }}</p>
+        <p>conta {{ userToTransfer?.account }}</p>
+        <h2>{{ secondFormGroup.value.amountToTransfer }}</h2>
+        <p>Identificação {{ thirdFormGroup.value.identification }}</p>
         <div>
-            <button mat-button (click)="stepper.reset()">Reset</button>
+            <button mat-button>Ir para Extrato</button>
+            <button mat-raised-button color="primary" (click)="stepper.reset()">Realizar nova Transferência</button>
         </div>
     </mat-step>
 

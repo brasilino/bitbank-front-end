@@ -4,6 +4,8 @@ import { MatStepper } from '@angular/material/stepper';
 
 import { User } from '../shared/interfaces/user.interface';
 import { AuthService } from '../shared/services/auth.service';
+import { TransferService } from './transfer.service';
+import { UserToTransfer } from './user-to-transfer';
 
 @Component({
   selector: 'app-transfer',
@@ -13,6 +15,7 @@ import { AuthService } from '../shared/services/auth.service';
 export class TransferComponent implements OnInit {
 
   user: User;
+  userToTransfer: UserToTransfer;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
@@ -20,7 +23,8 @@ export class TransferComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private transferService: TransferService
   ) {}
 
   ngOnInit() {
@@ -30,10 +34,10 @@ export class TransferComponent implements OnInit {
       account: ['', Validators.required]
     });
     this.secondFormGroup = this.formBuilder.group({
-      value: ['', Validators.required]
+      amountToTransfer: ['', Validators.required]
     });
     this.thirdFormGroup = this.formBuilder.group({
-      identificacao: ['']
+      identification: ['']
     });
   }
 
@@ -42,12 +46,24 @@ export class TransferComponent implements OnInit {
   }
 
   goForward(stepper: MatStepper){
+    stepper.next();
+  }
 
+  getUserToTransfer(stepper: MatStepper) {
+
+    if (this.firstFormGroup.valid) {
+      const account = this.firstFormGroup.value.account;
       this.loading = true;
-      setTimeout(() => {
-        this.loading = false;
-        stepper.next();
-      }, 3000);
+      this.transferService.getUser(account)
+        .subscribe((response) => {
+          this.loading = false;
+          this.userToTransfer = response;
+          stepper.next();
+        }, error => {
+          this.loading = false;
+          alert(error);
+        });
+    }
   }
 
   transferTo(stepper: MatStepper, account: string) {
