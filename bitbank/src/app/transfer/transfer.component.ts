@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 
+import { MyErrorStateMatcher } from '../shared/classes/my-error-state-matcher';
 import { User } from '../shared/interfaces/user.interface';
 import { AuthService } from '../shared/services/auth.service';
 import { TransferService } from './transfer.service';
 import { UserToTransfer } from './user-to-transfer';
+
 
 @Component({
   selector: 'app-transfer',
@@ -21,6 +23,8 @@ export class TransferComponent implements OnInit {
   thirdFormGroup: FormGroup;
   loading = false;
 
+  matcher: MyErrorStateMatcher;
+
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
@@ -31,14 +35,24 @@ export class TransferComponent implements OnInit {
     this.user = this.authService.getUser();
     console.log(this.user)
     this.firstFormGroup = this.formBuilder.group({
-      account: ['', Validators.required]
+      account: ['', [
+        Validators.required,
+        Validators.minLength(7),
+        Validators.maxLength(7)
+      ]]
     });
     this.secondFormGroup = this.formBuilder.group({
-      amountToTransfer: ['', Validators.required]
+      amountToTransfer: ['', [
+        Validators.required,
+        Validators.min(10),
+        Validators.max(100000)
+      ]]
     });
     this.thirdFormGroup = this.formBuilder.group({
       identification: ['']
     });
+
+    this.matcher = new MyErrorStateMatcher();
   }
 
   goBack(stepper: MatStepper){

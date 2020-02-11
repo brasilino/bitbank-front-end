@@ -5,10 +5,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatStepperModule } from '@angular/material/stepper';
+import { NgxCurrencyModule } from 'ngx-currency';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
 
 import { TransferRoutingModule } from './transfer-routing.module';
 import { TransferComponent } from './transfer.component';
 
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
 @NgModule({
   declarations: [
@@ -22,7 +25,9 @@ import { TransferComponent } from './transfer.component';
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    NgxCurrencyModule,
+    NgxMaskModule.forRoot(options)
   ]
 })
 export class TransferModule { }

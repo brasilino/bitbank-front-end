@@ -13,8 +13,17 @@
       <form [formGroup]="firstFormGroup">
         <ng-template matStepLabel matStepperIcon="done">Informe o número da conta</ng-template>
         <mat-form-field>
-          <mat-label>Número da Conta</mat-label>
-          <input matInput placeholder="Ex: 000000-0" formControlName="account" required>
+            <mat-label>Número da Conta</mat-label>
+            <input matInput placeholder="Ex: 000000-0" formControlName="account" 
+                maxlength="8" mask="000000-0" required>
+            <mat-error *ngIf="firstFormGroup.get('account').hasError('required')">
+                Informe o número da conta
+            </mat-error>
+            <mat-error 
+                *ngIf="firstFormGroup.get('account').hasError('minlength')
+                || firstFormGroup.get('account').hasError('maxlength')">
+                A conta deve possuir 7 digitos
+            </mat-error>
         </mat-form-field>
         <div>
           <button mat-button (click)="getUserToTransfer(stepper)">Avançar</button>
@@ -31,7 +40,15 @@
             <mat-form-field>
                 <mat-label>Informe o valor</mat-label>
                 <input matInput formControlName="amountToTransfer" placeholder="Ex: R$ 100,00"
-                    required>
+                currencyMask  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }" required>
+                <mat-error *ngIf="secondFormGroup.get('amountToTransfer').hasError('required')">
+                    Informe o valor que deseja transferência
+                </mat-error>
+                <mat-error 
+                    *ngIf="secondFormGroup.get('amountToTransfer').hasError('min')
+                    || secondFormGroup.get('amountToTransfer').hasError('max')">
+                    Escolha um valor entre R$ 10,00 e R$ 100.000,00
+                </mat-error>
             </mat-form-field>
             <p class="saldo"><small>Saldo disponível: R$ 56,00</small></p>
             <div>
@@ -47,7 +64,7 @@
             <p>{{ userToTransfer?.name }}</p>
             <p>CPF {{ userToTransfer?.cpf }}</p>
             <p>conta {{ userToTransfer?.account }}</p>
-            <h2>{{ secondFormGroup.value.amountToTransfer }}</h2>
+            <h2>{{ secondFormGroup.value.amountToTransfer | currency:'BRL' }}</h2>
             <mat-form-field>
                 <mat-label>Identificação do comprovante</mat-label>
                 <input matInput formControlName="identification" placeholder="Ex: R$ 100,00">
@@ -65,7 +82,7 @@
         <p>{{ userToTransfer?.name }}</p>
         <p>CPF {{ userToTransfer?.cpf }}</p>
         <p>conta {{ userToTransfer?.account }}</p>
-        <h2>{{ secondFormGroup.value.amountToTransfer }}</h2>
+        <h2>{{ secondFormGroup.value.amountToTransfer | currency:'BRL' }}</h2>
         <p>Identificação {{ thirdFormGroup.value.identification }}</p>
         <div>
             <button mat-button>Ir para Extrato</button>
