@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 import { AuthService } from '../services/auth.service';
 
@@ -9,13 +10,13 @@ import { AuthService } from '../services/auth.service';
 export class IsNotLoggedGuard implements CanActivate {
 
   constructor(
-    private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
 
   }
 
-  canActivate(): boolean {
+  canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     if (!this.authService.isLogged()) {
       return true;
     } else {
