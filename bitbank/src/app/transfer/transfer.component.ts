@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 
@@ -8,13 +9,12 @@ import { AuthService } from '../shared/services/auth.service';
 import { TransferService } from './transfer.service';
 import { UserToTransfer } from './user-to-transfer';
 
-
 @Component({
   selector: 'app-transfer',
   templateUrl: './transfer.component.html',
   styleUrls: ['./transfer.component.scss']
 })
-export class TransferComponent implements OnInit {
+export class TransferComponent implements OnInit, AfterViewInit {
 
   user: User;
   userToTransfer: UserToTransfer;
@@ -22,18 +22,34 @@ export class TransferComponent implements OnInit {
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
   loading = false;
+  editable = true;
+
+  matStepper: MatStepper;
+  viewInit = false;
+  smallScreen: boolean;
 
   matcher: MyErrorStateMatcher;
 
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private transferService: TransferService
-  ) {}
+    private transferService: TransferService,
+    private breakpointObserver: BreakpointObserver
+  ) {
+    breakpointObserver.observe([
+      Breakpoints.XSmall,
+      //Breakpoints.Small
+    ]).subscribe(result => {
+      console.log(result.matches);
+      this.smallScreen = result.matches;
+    });
+  }
 
   ngOnInit() {
+
     this.user = this.authService.getUser();
     console.log(this.user)
+
     this.firstFormGroup = this.formBuilder.group({
       account: ['', [
         Validators.required,
@@ -53,14 +69,26 @@ export class TransferComponent implements OnInit {
     });
 
     this.matcher = new MyErrorStateMatcher();
+
+    //this.viewInit = true;
   }
 
-  goBack(stepper: MatStepper){
+  ngAfterViewInit() {
+    //this.viewInit = true;
+  }
+
+  goBack(stepper: MatStepper) {
     stepper.previous();
   }
 
-  goForward(stepper: MatStepper){
+  goForward(stepper: MatStepper) {
     stepper.next();
+    //this.matStepper.next();
+  }
+
+  reset(stepper: MatStepper) {
+    this.editable = true;
+    stepper.reset();
   }
 
   getUserToTransfer(stepper: MatStepper) {
@@ -85,6 +113,7 @@ export class TransferComponent implements OnInit {
     this.loading = true;
     setTimeout(() => {
       this.loading = false;
+      this.editable = false;
       stepper.next();
     }, 3000);
   }
