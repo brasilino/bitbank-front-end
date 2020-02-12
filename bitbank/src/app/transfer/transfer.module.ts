@@ -8,6 +8,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { NgxCurrencyModule } from 'ngx-currency';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 
+import { HeaderComponent } from '../shared/components/header/header.component';
 import { TransferRoutingModule } from './transfer-routing.module';
 import { TransferComponent } from './transfer.component';
 
@@ -15,7 +16,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
 @NgModule({
   declarations: [
-    TransferComponent
+    TransferComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,
