@@ -1,10 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { AuthService } from '../shared/services/auth.service';
-import { Extract } from './extract.interface';
+
+//import { Extract } from './extract.interface';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -28,7 +28,7 @@ export class ExtractService {
     httpOptions.headers = httpOptions.headers.set('Authorization', 'Bearer ' + this.TOKEN);
   }
 
-  getExtract(): Observable<Extract> {
-    return this.http.get<Extract>(this.apiUrl, httpOptions);
-  }
+  // getExtract(): Observable<Extract> {
+  //   return this.http.get<Extract>(this.apiUrl, httpOptions);
+  // }
 }

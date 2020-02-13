@@ -16,6 +16,7 @@ export class AuthService {
 
   setUser(user: User) {
     sessionStorage.setItem('user', JSON.stringify(user));
+    this.user = user;
   }
 
   getUser(): User | null {
@@ -25,6 +26,8 @@ export class AuthService {
       const user = sessionStorage.getItem('user');
       if (user) {
         this.user = JSON.parse(user);
+      } else {
+        this.user = null;
       }
     }
     return this.user;
@@ -35,6 +38,7 @@ export class AuthService {
   }
 
   logout() {
+    this.user = null;
     sessionStorage.removeItem('user');
     this.router.navigate(['login']);
   }
