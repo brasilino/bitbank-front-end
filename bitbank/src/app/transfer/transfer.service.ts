@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-import { AuthService } from '../shared/services/auth.service';
-import { Extract } from './extract.interface';
+import { AuthService } from './../shared/services/auth.service';
+import { UserToTransfer } from './user-to-transfer.interface';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -15,7 +15,7 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class ExtractService {
+export class TransferService {
 
   TOKEN: string;
   apiUrl = environment.API_URL;
@@ -28,7 +28,13 @@ export class ExtractService {
     httpOptions.headers = httpOptions.headers.set('Authorization', 'Bearer ' + this.TOKEN);
   }
 
-  getExtract(): Observable<Extract> {
-    return this.http.get<Extract>(this.apiUrl, httpOptions);
+  getUserToTransfer(account: string): Observable<UserToTransfer> {
+    this.apiUrl += '/user/search?filter[numberAccount]=' + account;
+    return this.http.get<UserToTransfer>(this.apiUrl, httpOptions);
   }
+
+  transfer(params: {}): Observable<UserToTransfer> {
+    return this.http.post<UserToTransfer>(this.apiUrl, params, httpOptions);
+  }
+
 }

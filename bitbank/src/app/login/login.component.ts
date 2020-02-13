@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { MyErrorStateMatcher } from '../shared/classes/my-error-state-matcher';
 import { LoginService } from './login.service';
-import { MyErrorStateMatcher } from './my-error-state-matcher';
 
 @Component({
   selector: 'app-login',
@@ -46,8 +46,9 @@ export class LoginComponent implements OnInit {
 
       const cpf = this.form.value.cpf;
       const password = this.form.value.password;
+      const params = {cpf, password};
 
-      this.loginService.login(cpf, password)
+      this.loginService.login(params)
         .subscribe(response => {
           console.log(response);
           this.router.navigate(['extrato']);

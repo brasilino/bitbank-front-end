@@ -1,34 +1,36 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 import { User } from '../shared/interfaces/user.interface';
 import { AuthService } from '../shared/services/auth.service';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json',
+    'Authorization': 'my-auth-token'
+  })
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(private authService: AuthService) { }
+  apiUrl = environment.API_URL;
 
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) { }
 
-  login(cpf: string, password: string): Observable<User> {
-
-    if (cpf === '39401951896' && password === '123') {
-      return of({
-        name: 'Alan Silva Brasilino',
-        cpf: '394.019.518-96',
-        token: 'xxxxxxxxxxxx'
-      }).pipe(
-        delay(2000),
-        tap(user => {
-          this.authService.setUser(user);
-        })
-      );
-    } else {
-      return throwError('Usuário ou senha inválido.');
-    }
-
+  login(params: {}): Observable<User> {
+    return this.http.post<User>(this.apiUrl + 'api/login', params)
+            .pipe(
+              delay(2000),
+              tap(user => this.authService.setUser(user))
+            );
   }
 }

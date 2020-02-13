@@ -1,0 +1,315 @@
+<app-header></app-header>
+
+<mat-progress-bar
+    *ngIf="loading"
+    class="example-margin"
+    color="primary"
+    mode="indeterminate"
+    value="50"
+    bufferValue="75">
+</mat-progress-bar>
+
+<!-- Não funciona bem, testando ainda -->
+<!-- <ng-template #stepOne>
+    <form [formGroup]="firstFormGroup" autocomplete="off">
+        <ng-template matStepLabel matStepperIcon="done">Informe o número da conta</ng-template>
+        <mat-form-field>
+            <mat-label>Número da Conta</mat-label>
+            <input matInput placeholder="Ex: 000000-0" formControlName="account" 
+                maxlength="8" mask="000000-0" required>
+            <mat-error *ngIf="firstFormGroup.get('account').hasError('required')">
+                Informe o número da conta
+            </mat-error>
+            <mat-error 
+                *ngIf="firstFormGroup.get('account').hasError('minlength')
+                || firstFormGroup.get('account').hasError('maxlength')">
+                A conta deve possuir 7 digitos
+            </mat-error>
+        </mat-form-field>
+        <div>
+          <button mat-button (click)="getUserToTransfer(stepper)">Avançar</button>
+        </div>
+    </form>
+</ng-template> -->
+  
+<!-- <ng-template #stepTwo>
+    <form [formGroup]="secondFormGroup" autocomplete="off">
+        <ng-template matStepLabel matStepperIcon="edit">Confirmação dos dados</ng-template>
+        <p>{{ userToTransfer?.name }}</p>
+        <p>CPF {{ userToTransfer?.cpf }}</p>
+        <p>conta {{ userToTransfer?.account }}</p>
+        <mat-form-field>
+            <mat-label>Informe o valor</mat-label>
+            <input matInput formControlName="amountToTransfer" placeholder="Ex: R$ 100,00"
+            currencyMask  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }" required>
+            <mat-error *ngIf="secondFormGroup.get('amountToTransfer').hasError('required')">
+                Informe o valor que deseja transferência
+            </mat-error>
+            <mat-error 
+                *ngIf="secondFormGroup.get('amountToTransfer').hasError('min')
+                || secondFormGroup.get('amountToTransfer').hasError('max')">
+                Escolha um valor entre R$ 10,00 e R$ 100.000,00
+            </mat-error>
+        </mat-form-field>
+        <p class="saldo"><small>Saldo disponível: R$ 56,00</small></p>
+        <div>
+            <button mat-button (click)="goBack(stepper)">Voltar</button>
+            <button mat-button (click)="goForward(stepper)">Avançar</button>
+        </div>
+    </form>
+</ng-template> -->
+  
+<!-- <ng-template #stepThree>
+    <form [formGroup]="thirdFormGroup" autocomplete="off">
+        <ng-template matStepLabel>Revisão</ng-template>
+        <p>{{ userToTransfer?.name }}</p>
+        <p>CPF {{ userToTransfer?.cpf }}</p>
+        <p>conta {{ userToTransfer?.account }}</p>
+        <h2>{{ secondFormGroup.value.amountToTransfer | currency:'BRL' }}</h2>
+        <mat-form-field>
+            <mat-label>Identificação do comprovante</mat-label>
+            <input matInput formControlName="identification" placeholder="Ex: R$ 100,00">
+        </mat-form-field>
+        <div>
+            <button mat-button (click)="goBack(stepper)">Voltar</button>
+            <button mat-raised-button (click)="transferTo(stepper, 'conta')" color="primary">Confirmar Transferência</button>
+        </div>
+    </form>
+</ng-template> -->
+  
+<!-- <ng-template #stepFour>
+    <ng-template matStepLabel>Comprovante</ng-template>
+    <p>{{ userToTransfer?.name }}</p>
+    <p>CPF {{ userToTransfer?.cpf }}</p>
+    <p>conta {{ userToTransfer?.account }}</p>
+    <h2>{{ secondFormGroup.value.amountToTransfer | currency:'BRL' }}</h2>
+    <p *ngIf="thirdFormGroup.value.identification">
+        Identificação {{ thirdFormGroup.value.identification }}
+    </p>
+    <div>
+        <button mat-button routerLink="extrato">Ir para Extrato</button>
+        <button mat-raised-button color="primary" (click)="reset(stepper)">Realizar nova Transferência</button>
+    </div>
+</ng-template> -->
+
+<!-- <ng-template [ngIf]="smallScreen" [ngIfElse]="bigScreen">
+    <mat-vertical-stepper linear #stepper *ngIf="viewInit">
+        <mat-step [stepControl]="firstFormGroup" [editable]="editable">
+            <ng-container *ngTemplateOutlet="stepOne"></ng-container>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup" [editable]="editable">
+            <ng-container *ngTemplateOutlet="stepTwo"></ng-container>
+        </mat-step>
+        <mat-step [stepControl]="thirdFormGroup" [editable]="editable">
+            <ng-container *ngTemplateOutlet="stepThree"></ng-container>
+        </mat-step>
+        <mat-step>
+            <ng-container *ngTemplateOutlet="stepFour"></ng-container>
+        </mat-step>
+    </mat-vertical-stepper>
+</ng-template> -->
+  
+<!-- <ng-template #bigScreen>
+    <mat-horizontal-stepper linear #stepper>
+        <mat-step [stepControl]="firstFormGroup" [editable]="editable">
+            <ng-container *ngTemplateOutlet="stepOne"></ng-container>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup" [editable]="editable">
+            <ng-container *ngTemplateOutlet="stepTwo"></ng-container>
+        </mat-step>
+        <mat-step [stepControl]="thirdFormGroup" [editable]="editable">
+            <ng-container *ngTemplateOutlet="stepThree"></ng-container>
+        </mat-step>
+        <mat-step>
+            <ng-container *ngTemplateOutlet="stepFour"></ng-container>
+        </mat-step>
+    </mat-horizontal-stepper>
+</ng-template> -->
+
+
+
+
+
+
+
+
+
+
+<!-- Funciona com duplicação de código -->
+<div class="container">
+    <ng-template [ngIf]="smallScreen" [ngIfElse]="bigScreen">
+        <mat-vertical-stepper linear="true" #stepper>
+
+            <mat-step [stepControl]="firstFormGroup" [editable]="editable">
+            <form [formGroup]="firstFormGroup" autocomplete="off">
+                <ng-template matStepLabel matStepperIcon="done">Informe o número da conta</ng-template>
+                <mat-form-field>
+                    <mat-label>Número da Conta</mat-label>
+                    <input matInput placeholder="Ex: 000000-0" formControlName="account" 
+                        maxlength="8" mask="000000-0" required>
+                    <mat-error *ngIf="firstFormGroup.get('account').hasError('required')">
+                        Informe o número da conta
+                    </mat-error>
+                    <mat-error 
+                        *ngIf="firstFormGroup.get('account').hasError('minlength')
+                        || firstFormGroup.get('account').hasError('maxlength')">
+                        A conta deve possuir 7 digitos
+                    </mat-error>
+                </mat-form-field>
+                <div>
+                <button mat-button (click)="getUserToTransfer(stepper)">Avançar</button>
+                </div>
+            </form>
+            </mat-step>
+
+            <mat-step [stepControl]="secondFormGroup" [editable]="editable">
+                <form [formGroup]="secondFormGroup" autocomplete="off">
+                    <ng-template matStepLabel matStepperIcon="edit">Confirmação dos dados</ng-template>
+                    <p>{{ userToTransfer?.name }}</p>
+                    <p>CPF {{ userToTransfer?.cpf }}</p>
+                    <p>conta {{ userToTransfer?.account }}</p>
+                    <mat-form-field>
+                        <mat-label>Informe o valor</mat-label>
+                        <input matInput formControlName="amountToTransfer" placeholder="Ex: R$ 100,00"
+                        currencyMask  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }" required>
+                        <mat-error *ngIf="secondFormGroup.get('amountToTransfer').hasError('required')">
+                            Informe o valor que deseja transferência
+                        </mat-error>
+                        <mat-error 
+                            *ngIf="secondFormGroup.get('amountToTransfer').hasError('min')
+                            || secondFormGroup.get('amountToTransfer').hasError('max')">
+                            Escolha um valor entre R$ 10,00 e R$ 100.000,00
+                        </mat-error>
+                    </mat-form-field>
+                    <p class="saldo"><small>Saldo disponível: R$ 56,00</small></p>
+                    <div>
+                        <button mat-button (click)="goBack(stepper)">Voltar</button>
+                        <button mat-button (click)="goForward(stepper)">Avançar</button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step [stepControl]="thirdFormGroup" [editable]="editable">
+                <form [formGroup]="thirdFormGroup" autocomplete="off">
+                    <ng-template matStepLabel>Revisão</ng-template>
+                    <p>{{ userToTransfer?.name }}</p>
+                    <p>CPF {{ userToTransfer?.cpf }}</p>
+                    <p>conta {{ userToTransfer?.account }}</p>
+                    <h2>{{ secondFormGroup.value.amountToTransfer | currency:'BRL' }}</h2>
+                    <mat-form-field>
+                        <mat-label>Identificação do comprovante</mat-label>
+                        <input matInput formControlName="identification" placeholder="Ex: R$ 100,00">
+                    </mat-form-field>
+                    <div>
+                        <button mat-button (click)="goBack(stepper)">Voltar</button>
+                        <button mat-raised-button (click)="transferTo(stepper, 'conta')" color="primary">Confirmar Transferência</button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step>
+                <ng-template matStepLabel>Comprovante</ng-template>
+                <p>{{ userToTransfer?.name }}</p>
+                <p>CPF {{ userToTransfer?.cpf }}</p>
+                <p>conta {{ userToTransfer?.account }}</p>
+                <h2>{{ secondFormGroup.value.amountToTransfer | currency:'BRL' }}</h2>
+                <p *ngIf="thirdFormGroup.value.identification">
+                    Identificação {{ thirdFormGroup.value.identification }}
+                </p>
+                <div>
+                    <button mat-button routerLink="extrato">Ir para Extrato</button>
+                    <button mat-raised-button color="primary" (click)="reset(stepper)">Realizar nova Transferência</button>
+                </div>
+            </mat-step>
+
+        </mat-vertical-stepper>
+    </ng-template>
+    
+    <ng-template #bigScreen>
+        <mat-horizontal-stepper linear="true" #stepper>
+
+            <mat-step [stepControl]="firstFormGroup" [editable]="editable">
+            <form [formGroup]="firstFormGroup" autocomplete="off">
+                <ng-template matStepLabel matStepperIcon="done">Informe o número da conta</ng-template>
+                <mat-form-field>
+                    <mat-label>Número da Conta</mat-label>
+                    <input matInput placeholder="Ex: 000000-0" formControlName="account" 
+                        maxlength="8" mask="000000-0" required>
+                    <mat-error *ngIf="firstFormGroup.get('account').hasError('required')">
+                        Informe o número da conta
+                    </mat-error>
+                    <mat-error 
+                        *ngIf="firstFormGroup.get('account').hasError('minlength')
+                        || firstFormGroup.get('account').hasError('maxlength')">
+                        A conta deve possuir 7 digitos
+                    </mat-error>
+                </mat-form-field>
+                <div>
+                <button mat-button (click)="getUserToTransfer(stepper)">Avançar</button>
+                </div>
+            </form>
+            </mat-step>
+
+            <mat-step [stepControl]="secondFormGroup" [editable]="editable">
+                <form [formGroup]="secondFormGroup" autocomplete="off">
+                    <ng-template matStepLabel matStepperIcon="edit">Confirmação dos dados</ng-template>
+                    <p>{{ userToTransfer?.name }}</p>
+                    <p>CPF {{ userToTransfer?.cpf }}</p>
+                    <p>conta {{ userToTransfer?.account }}</p>
+                    <mat-form-field>
+                        <mat-label>Informe o valor</mat-label>
+                        <input matInput formControlName="amountToTransfer" placeholder="Ex: R$ 100,00"
+                        currencyMask  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }" required>
+                        <mat-error *ngIf="secondFormGroup.get('amountToTransfer').hasError('required')">
+                            Informe o valor que deseja transferência
+                        </mat-error>
+                        <mat-error 
+                            *ngIf="secondFormGroup.get('amountToTransfer').hasError('min')
+                            || secondFormGroup.get('amountToTransfer').hasError('max')">
+                            Escolha um valor entre R$ 10,00 e R$ 100.000,00
+                        </mat-error>
+                    </mat-form-field>
+                    <p class="saldo"><small>Saldo disponível: R$ 56,00</small></p>
+                    <div>
+                        <button mat-button (click)="goBack(stepper)">Voltar</button>
+                        <button mat-button (click)="goForward(stepper)">Avançar</button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step [stepControl]="thirdFormGroup" [editable]="editable">
+                <form [formGroup]="thirdFormGroup" autocomplete="off">
+                    <ng-template matStepLabel>Revisão</ng-template>
+                    <p>{{ userToTransfer?.name }}</p>
+                    <p>CPF {{ userToTransfer?.cpf }}</p>
+                    <p>conta {{ userToTransfer?.account }}</p>
+                    <h2>{{ secondFormGroup.value.amountToTransfer | currency:'BRL' }}</h2>
+                    <mat-form-field>
+                        <mat-label>Identificação do comprovante</mat-label>
+                        <input matInput formControlName="identification" placeholder="Ex: R$ 100,00">
+                    </mat-form-field>
+                    <div>
+                        <button mat-button (click)="goBack(stepper)">Voltar</button>
+                        <button mat-raised-button (click)="transferTo(stepper, 'conta')" color="primary">Confirmar Transferência</button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step>
+                <ng-template matStepLabel>Comprovante</ng-template>
+                <p>{{ userToTransfer?.name }}</p>
+                <p>CPF {{ userToTransfer?.cpf }}</p>
+                <p>conta {{ userToTransfer?.account }}</p>
+                <h2>{{ secondFormGroup.value.amountToTransfer | currency:'BRL' }}</h2>
+                <p *ngIf="thirdFormGroup.value.identification">
+                    Identificação {{ thirdFormGroup.value.identification }}
+                </p>
+                <div>
+                    <button mat-button routerLink="extrato">Ir para Extrato</button>
+                    <button mat-raised-button color="primary" (click)="reset(stepper)">Realizar nova Transferência</button>
+                </div>
+            </mat-step>
+
+        </mat-horizontal-stepper>
+    </ng-template>
+</div>
