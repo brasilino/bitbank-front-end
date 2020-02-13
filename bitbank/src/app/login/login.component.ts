@@ -46,8 +46,9 @@ export class LoginComponent implements OnInit {
 
       const cpf = this.form.value.cpf;
       const password = this.form.value.password;
+      const params = {cpf, password};
 
-      this.loginService.login(cpf, password)
+      this.loginService.login(params)
         .subscribe(response => {
           console.log(response);
           this.router.navigate(['extrato']);

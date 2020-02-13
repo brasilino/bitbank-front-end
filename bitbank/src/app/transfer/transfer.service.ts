@@ -1,29 +1,40 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
-import { UserToTransfer } from './user-to-transfer';
+import { AuthService } from './../shared/services/auth.service';
+import { UserToTransfer } from './user-to-transfer.interface';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransferService {
 
-  constructor() { }
+  TOKEN: string;
+  apiUrl = environment.API_URL;
 
-  getUser(account: string): Observable<UserToTransfer> {
-
-    if (account === '1111111') {
-      return of({
-        name: 'Jéssica Silva',
-        cpf: '111.111.111-11',
-        account: '111111-1'
-      }).pipe(
-        delay(2000)
-      );
-    } else {
-      return throwError('Nenhum usuário foi localizado.');
-    }
-
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) {
+    this.TOKEN = this.authService.getUser().token;
+    httpOptions.headers = httpOptions.headers.set('Authorization', 'Bearer ' + this.TOKEN);
   }
+
+  getUserToTransfer(account: string): Observable<UserToTransfer> {
+    this.apiUrl += '/user/search?filter[numberAccount]=' + account;
+    return this.http.get<UserToTransfer>(this.apiUrl, httpOptions);
+  }
+
+  transfer(params: {}): Observable<UserToTransfer> {
+    return this.http.post<UserToTransfer>(this.apiUrl, params, httpOptions);
+  }
+
 }

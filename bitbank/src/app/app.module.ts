@@ -1,4 +1,5 @@
 import { registerLocaleData } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import localePt from '@angular/common/locales/pt';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
@@ -22,7 +23,8 @@ registerLocaleData(localePt, 'pt');
     AppRoutingModule,
     BrowserAnimationsModule,
     MatInputModule,
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    HttpClientModule
   ],
   providers: [{
     provide: LOCALE_ID,
