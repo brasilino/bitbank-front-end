@@ -54,7 +54,9 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['extrato']);
         }, error => {
           this.form.setValue({password: '', cpf});
-          this.error = error;
+          // Verificar o status para mensagem de erro
+          // retorno 0 quer dizer q o serviço do nodejs parou
+          this.error = 'Usuário ou senha inválido.';
         });
     }
   }

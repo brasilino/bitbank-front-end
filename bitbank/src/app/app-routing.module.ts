@@ -29,8 +29,13 @@ const routes: Routes = [
     canActivate: [IsLoggedGuard]
   },
   {
+    path: 'nao-encontrado',
+    loadChildren: () => import('./not-found/not-found.module').then(m => m.NotFoundModule),
+    canActivate: [IsLoggedGuard]
+  },
+  {
     path: '**',
-    redirectTo: 'extrato' // Criar página not-found e redirecionar
+    redirectTo: 'nao-encontrado'
   }
 ];
 
