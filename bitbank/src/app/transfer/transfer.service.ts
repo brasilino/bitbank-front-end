@@ -32,7 +32,6 @@ export class TransferService {
   }
 
   getUserToTransfer(account: string): Observable<UserToTransfer> {
-    account = '945801-3';
     const ulr = this.apiUrl + 'user/search?filter[numberAccount]=' + account;
     return this.http.get<UserToTransfer>(ulr, httpOptions);
   }

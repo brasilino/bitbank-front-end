@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: 'extrato',
     component: ExtractComponent,
-    canActivate: [IsLoggedGuard]
+    // canActivate: [IsLoggedGuard]
   },
   {
     path: 'transferencia',

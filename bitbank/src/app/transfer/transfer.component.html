@@ -43,7 +43,7 @@
             <input matInput formControlName="amountToTransfer" placeholder="Ex: R$ 100,00"
             currencyMask  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }" required>
             <mat-error *ngIf="secondFormGroup.get('amountToTransfer').hasError('required')">
-                Informe o valor que deseja transferência
+                Informe o valor que deseja transferir
             </mat-error>
             <mat-error 
                 *ngIf="secondFormGroup.get('amountToTransfer').hasError('min')
@@ -127,14 +127,6 @@
 </ng-template> -->
 
 
-
-
-
-
-
-
-
-
 <!-- Funciona com duplicação de código -->
 <div class="container">
     <ng-template [ngIf]="smallScreen" [ngIfElse]="bigScreen">
@@ -173,7 +165,7 @@
                         <input matInput formControlName="amountToTransfer" placeholder="Ex: R$ 100,00"
                         currencyMask  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }" required>
                         <mat-error *ngIf="secondFormGroup.get('amountToTransfer').hasError('required')">
-                            Informe o valor que deseja transferência
+                            Informe o valor que deseja transferir
                         </mat-error>
                         <mat-error 
                             *ngIf="secondFormGroup.get('amountToTransfer').hasError('min')
@@ -181,7 +173,7 @@
                             Escolha um valor entre R$ 10,00 e R$ 100.000,00
                         </mat-error>
                     </mat-form-field>
-                    <p class="saldo"><small>Saldo disponível: R$ 56,00</small></p>
+                    <p class="saldo"><small>Saldo disponível: {{ user.body.balance | currency:'BRL' }}</small></p>
                     <div>
                         <button mat-button (click)="goBack(stepper)">Voltar</button>
                         <button mat-button (click)="goForward(stepper)">Avançar</button>
@@ -217,8 +209,8 @@
                     Identificação {{ thirdFormGroup.value.identification }}
                 </p>
                 <div>
-                    <button mat-button routerLink="extrato">Ir para Extrato</button>
-                    <button mat-raised-button color="primary" (click)="reset(stepper)">Realizar nova Transferência</button>
+                    <button mat-button routerLink="/extrato">Ir para Extrato</button>
+                    <button mat-raised-button color="primary" (click)="reset(stepper)">Nova Transferência</button>
                 </div>
             </mat-step>
 
@@ -261,7 +253,7 @@
                         <input matInput formControlName="amountToTransfer" placeholder="Ex: R$ 100,00"
                         currencyMask  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }" required>
                         <mat-error *ngIf="secondFormGroup.get('amountToTransfer').hasError('required')">
-                            Informe o valor que deseja transferência
+                            Informe o valor que deseja transferir
                         </mat-error>
                         <mat-error 
                             *ngIf="secondFormGroup.get('amountToTransfer').hasError('min')
@@ -269,7 +261,7 @@
                             Escolha um valor entre R$ 10,00 e R$ 100.000,00
                         </mat-error>
                     </mat-form-field>
-                    <p class="saldo"><small>Saldo disponível: R$ 56,00</small></p>
+                    <p class="saldo"><small>Saldo disponível: R$ {{ user.body.balance | currency:'BRL' }}</small></p>
                     <div>
                         <button mat-button (click)="goBack(stepper)">Voltar</button>
                         <button mat-button (click)="goForward(stepper)">Avançar</button>
@@ -305,8 +297,8 @@
                     Identificação {{ thirdFormGroup.value.identification }}
                 </p>
                 <div>
-                    <button mat-button routerLink="extrato">Ir para Extrato</button>
-                    <button mat-raised-button color="primary" (click)="reset(stepper)">Realizar nova Transferência</button>
+                    <button mat-button routerLink="/extrato">Ir para Extrato</button>
+                    <button mat-raised-button color="primary" (click)="reset(stepper)">Nova Transferência</button>
                 </div>
             </mat-step>
 
