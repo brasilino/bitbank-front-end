@@ -2,31 +2,34 @@
     <mat-card-title>Login</mat-card-title>
     <mat-card-content>
 
-        <form [formGroup]="form" (ngSubmit)="login()">
-
-            <mat-form-field>
-                <input matInput formControlName="cpf" placeholder="CPF" 
-                    (keyup)="validateForm()"
-                    [errorStateMatcher]="matcher">
-                <mat-error *ngIf="form.get('cpf').hasError('required')">
-                    Campo Obrigatório
-                </mat-error>
-            </mat-form-field>
-
-            <mat-form-field>
-                <input matInput formControlName="password" placeholder="Senha" 
-                    (keyup)="validateForm()"
-                    [errorStateMatcher]="matcher">
-                <mat-error *ngIf="form.get('password').hasError('required')">
-                    Campo Obrigatório
-                </mat-error>
-            </mat-form-field>
-
+        <form [formGroup]="form" (ngSubmit)="login(form.value)">
+            <div id="cpf-container">
+                <mat-form-field >
+                    <input matInput formControlName="cpf" placeholder="CPF" 
+                        (keyup)="validateForm()"
+                        [errorStateMatcher]="matcher">
+                    <mat-icon matSuffix>perm_identity</mat-icon>
+                    <mat-error *ngIf="form.get('cpf').hasError('required')" id="cpf-error-msg">
+                        Campo Obrigatório
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div id="password-container">
+                <mat-form-field >
+                    <input matInput formControlName="password" placeholder="Senha" 
+                        (keyup)="validateForm()"
+                        [errorStateMatcher]="matcher">
+                    <mat-icon matSuffix>vpn_key</mat-icon>
+                    <mat-error *ngIf="form.get('password').hasError('required')" id="password-error-msg" >
+                        Campo Obrigatório
+                    </mat-error>
+                </mat-form-field>
+            </div>
             <p *ngIf="error" class="error">
                 {{ error }}
             </p>
 
-            <div class="button">
+            <div  id="login-btn-container" class="button">
                 <button type="submit" mat-button>Login</button>
             </div>
 
