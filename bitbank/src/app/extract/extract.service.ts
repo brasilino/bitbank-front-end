@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { AuthService } from '../shared/services/auth.service';
-import { Extract } from './extract.interface';
+import { HistoricTransfer } from './extract.interface';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -28,7 +28,24 @@ export class ExtractService {
     httpOptions.headers = httpOptions.headers.set('Authorization', 'Bearer ' + this.TOKEN);
   }
 
-  getExtract(): Observable<Extract> {
-    return this.http.get<Extract>(this.apiUrl, httpOptions);
+  getExtract(): Observable<HistoricTransfer> {
+    return this.http.get<HistoricTransfer>(this.apiUrl, httpOptions);
+  }
+
+  getExtrato(page: number): Observable<HistoricTransfer[]> {
+    const headers = new HttpHeaders({
+      token: '....token de autenticação....',
+    });
+
+    return this.http.get<HistoricTransfer[]>(this.apiUrl + '/transacoes', {
+      params: {
+        _page: String(page)
+      },
+      headers
+    });
+  }
+
+  getHistoricTransferPorId(idTransacao): Observable<HistoricTransfer> {
+    return this.http.get<HistoricTransfer>(this.apiUrl + '/transacoes/' + idTransacao);
   }
 }
