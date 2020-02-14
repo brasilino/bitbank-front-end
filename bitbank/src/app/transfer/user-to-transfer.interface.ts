@@ -1,5 +1,5 @@
 export interface UserToTransfer {
-    name: string;
+    fullName: string;
     cpf: string;
-    account: string;
+    numberAccount: string;
 }

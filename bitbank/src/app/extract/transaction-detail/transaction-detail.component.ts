@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { delay } from 'rxjs/operators';
 
-import { HistoricTransfer } from '../extract.interface';
+import { Extract } from '../extract.interface';
 import { ExtractService } from '../extract.service';
 
 
@@ -13,7 +13,7 @@ import { ExtractService } from '../extract.service';
 })
 export class TransactionDetailComponent implements OnInit {
 
-  transacao: HistoricTransfer;
+  transacao: Extract;
   estaCarregando: boolean;
 
   constructor(
@@ -23,12 +23,12 @@ export class TransactionDetailComponent implements OnInit {
 
   ngOnInit() {
     const idTransacao = this.route.snapshot.paramMap.get('idTransacao');
-    this.getHistoricTransferPorId(idTransacao);
+    this.getExtractPorId(idTransacao);
   }
 
-  getHistoricTransferPorId(idTransacao) {
+  getExtractPorId(idTransacao) {
     this.estaCarregando = true;
-    this.extractService.getHistoricTransferPorId(idTransacao)
+    this.extractService.getExtractPorId(idTransacao)
       .pipe(
         delay(2000),
       )

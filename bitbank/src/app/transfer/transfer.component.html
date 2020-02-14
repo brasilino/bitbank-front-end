@@ -35,9 +35,9 @@
 <!-- <ng-template #stepTwo>
     <form [formGroup]="secondFormGroup" autocomplete="off">
         <ng-template matStepLabel matStepperIcon="edit">Confirmação dos dados</ng-template>
-        <p>{{ userToTransfer?.name }}</p>
+        <p>{{ userToTransfer?.fullName }}</p>
         <p>CPF {{ userToTransfer?.cpf }}</p>
-        <p>conta {{ userToTransfer?.account }}</p>
+        <p>conta {{ userToTransfer?.numberAccount }}</p>
         <mat-form-field>
             <mat-label>Informe o valor</mat-label>
             <input matInput formControlName="amountToTransfer" placeholder="Ex: R$ 100,00"
@@ -62,9 +62,9 @@
 <!-- <ng-template #stepThree>
     <form [formGroup]="thirdFormGroup" autocomplete="off">
         <ng-template matStepLabel>Revisão</ng-template>
-        <p>{{ userToTransfer?.name }}</p>
+        <p>{{ userToTransfer?.fullName }}</p>
         <p>CPF {{ userToTransfer?.cpf }}</p>
-        <p>conta {{ userToTransfer?.account }}</p>
+        <p>conta {{ userToTransfer?.numberAccount }}</p>
         <h2>{{ secondFormGroup.value.amountToTransfer | currency:'BRL' }}</h2>
         <mat-form-field>
             <mat-label>Identificação do comprovante</mat-label>
@@ -79,9 +79,9 @@
   
 <!-- <ng-template #stepFour>
     <ng-template matStepLabel>Comprovante</ng-template>
-    <p>{{ userToTransfer?.name }}</p>
+    <p>{{ userToTransfer?.fullName }}</p>
     <p>CPF {{ userToTransfer?.cpf }}</p>
-    <p>conta {{ userToTransfer?.account }}</p>
+    <p>conta {{ userToTransfer?.numberAccount }}</p>
     <h2>{{ secondFormGroup.value.amountToTransfer | currency:'BRL' }}</h2>
     <p *ngIf="thirdFormGroup.value.identification">
         Identificação {{ thirdFormGroup.value.identification }}
@@ -165,9 +165,9 @@
             <mat-step [stepControl]="secondFormGroup" [editable]="editable">
                 <form [formGroup]="secondFormGroup" autocomplete="off">
                     <ng-template matStepLabel matStepperIcon="edit">Confirmação dos dados</ng-template>
-                    <p>{{ userToTransfer?.name }}</p>
+                    <p>{{ userToTransfer?.fullName }}</p>
                     <p>CPF {{ userToTransfer?.cpf }}</p>
-                    <p>conta {{ userToTransfer?.account }}</p>
+                    <p>conta {{ userToTransfer?.numberAccount }}</p>
                     <mat-form-field>
                         <mat-label>Informe o valor</mat-label>
                         <input matInput formControlName="amountToTransfer" placeholder="Ex: R$ 100,00"
@@ -192,9 +192,9 @@
             <mat-step [stepControl]="thirdFormGroup" [editable]="editable">
                 <form [formGroup]="thirdFormGroup" autocomplete="off">
                     <ng-template matStepLabel>Revisão</ng-template>
-                    <p>{{ userToTransfer?.name }}</p>
+                    <p>{{ userToTransfer?.fullName }}</p>
                     <p>CPF {{ userToTransfer?.cpf }}</p>
-                    <p>conta {{ userToTransfer?.account }}</p>
+                    <p>conta {{ userToTransfer?.numberAccount }}</p>
                     <h2>{{ secondFormGroup.value.amountToTransfer | currency:'BRL' }}</h2>
                     <mat-form-field>
                         <mat-label>Identificação do comprovante</mat-label>
@@ -202,16 +202,16 @@
                     </mat-form-field>
                     <div>
                         <button mat-button (click)="goBack(stepper)">Voltar</button>
-                        <button mat-raised-button (click)="transferTo(stepper, 'conta')" color="primary">Confirmar Transferência</button>
+                        <button mat-raised-button (click)="transferTo(stepper)" color="primary">Confirmar Transferência</button>
                     </div>
                 </form>
             </mat-step>
 
             <mat-step>
                 <ng-template matStepLabel>Comprovante</ng-template>
-                <p>{{ userToTransfer?.name }}</p>
+                <p>{{ userToTransfer?.fullName }}</p>
                 <p>CPF {{ userToTransfer?.cpf }}</p>
-                <p>conta {{ userToTransfer?.account }}</p>
+                <p>conta {{ userToTransfer?.numberAccount }}</p>
                 <h2>{{ secondFormGroup.value.amountToTransfer | currency:'BRL' }}</h2>
                 <p *ngIf="thirdFormGroup.value.identification">
                     Identificação {{ thirdFormGroup.value.identification }}
@@ -253,9 +253,9 @@
             <mat-step [stepControl]="secondFormGroup" [editable]="editable">
                 <form [formGroup]="secondFormGroup" autocomplete="off">
                     <ng-template matStepLabel matStepperIcon="edit">Confirmação dos dados</ng-template>
-                    <p>{{ userToTransfer?.name }}</p>
+                    <p>{{ userToTransfer?.fullName }}</p>
                     <p>CPF {{ userToTransfer?.cpf }}</p>
-                    <p>conta {{ userToTransfer?.account }}</p>
+                    <p>conta {{ userToTransfer?.numberAccount }}</p>
                     <mat-form-field>
                         <mat-label>Informe o valor</mat-label>
                         <input matInput formControlName="amountToTransfer" placeholder="Ex: R$ 100,00"
@@ -280,9 +280,9 @@
             <mat-step [stepControl]="thirdFormGroup" [editable]="editable">
                 <form [formGroup]="thirdFormGroup" autocomplete="off">
                     <ng-template matStepLabel>Revisão</ng-template>
-                    <p>{{ userToTransfer?.name }}</p>
+                    <p>{{ userToTransfer?.fullName }}</p>
                     <p>CPF {{ userToTransfer?.cpf }}</p>
-                    <p>conta {{ userToTransfer?.account }}</p>
+                    <p>conta {{ userToTransfer?.numberAccount }}</p>
                     <h2>{{ secondFormGroup.value.amountToTransfer | currency:'BRL' }}</h2>
                     <mat-form-field>
                         <mat-label>Identificação do comprovante</mat-label>
@@ -297,9 +297,9 @@
 
             <mat-step>
                 <ng-template matStepLabel>Comprovante</ng-template>
-                <p>{{ userToTransfer?.name }}</p>
+                <p>{{ userToTransfer?.fullName }}</p>
                 <p>CPF {{ userToTransfer?.cpf }}</p>
-                <p>conta {{ userToTransfer?.account }}</p>
+                <p>conta {{ userToTransfer?.numberAccount }}</p>
                 <h2>{{ secondFormGroup.value.amountToTransfer | currency:'BRL' }}</h2>
                 <p *ngIf="thirdFormGroup.value.identification">
                     Identificação {{ thirdFormGroup.value.identification }}

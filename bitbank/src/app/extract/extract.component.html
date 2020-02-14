@@ -1,4 +1,5 @@
 
+<app-header></app-header>
 
 <div class="swing"  *ngIf="!estaCarregando">
     <span *ngFor="let valor of saldo" >Saldo: 2000 {{valor.body}} </span>
@@ -16,15 +17,15 @@
       <th>futuro</th>
     </tr>
   
-    <tr *ngFor="let transacao of extrato">
-      <td>{{ transacao?.id }}</td>
-      <td>{{ transacao?.data | date }}</td>
-      <td>{{ transacao?.descricao }}</td>
-      <td [ngClass]="transacao?.valor > 0 ? 'verde' : 'vermelho'">
-        {{ transacao?.valor | currency:'BRL' }}
+    <tr *ngFor="let transaction of extrato">
+      <td>{{ transaction?.id }}</td>
+      <td>{{ transaction?.data | date }}</td>
+      <td>{{ transaction?.descricao }}</td>
+      <td [ngClass]="transaction?.valor > 0 ? 'verde' : 'vermelho'">
+        {{ transaction?.valor | currency:'BRL' }}
       </td>
       <td>
-        <button class="btn btn-primary" (click)="irParaDetalhes(transacao.id)">
+        <button class="btn btn-primary" (click)="irParaDetalhes(transaction.id)">
           Ver detalhes
         </button>
       </td>
@@ -32,86 +33,65 @@
 </table> -->
 
 <div class="container">
-  <mat-tab-group mat-stretch-tabs class=" example-stretched-tabs mat-elevation-z4">
+  <mat-tab-group (selectedTabChange)="onSelectedTabChange($event)" mat-stretch-tabs class=" example-stretched-tabs mat-elevation-z4">
     <mat-tab *ngIf="!estaCarregando" label="Tudo"> 
       <table class="table table-hover">
-        <button (click)="paginaAnterior()" [disabled]="page === 1"> Página anterior </button>
-        <button (click)="proximaPagina()"> Próxima página </button>
-        <tr>
-          <th>data</th>
-          <th>lugar</th>
-          <th>valor</th>
+        
+        <tr class="options">
+          <th class="options__list">Data</th>
+          <th class="options__list">Nome</th>
+          <th class="options__list">Valor</th>
         </tr>
-        <tr *ngFor="let transacao of extrato">
-          <td>{{ transacao.transactionDate | date }}</td>
-          <td>{{ transacao }}</td>
-          <td [ngClass]="transacao.amountTransferred > 0 ? 'verde' : 'vermelho'">
-            {{ transacao.amountTransferred | currency:'BRL' }}
+        <tr class="content" *ngFor="let transaction of listExtract ">
+          <td class="content__list">{{ transaction.transactionDate | date }}</td>
+          <td class="content__list">{{ transaction.cpfUser }}</td>
+          <td class="content__list" [ngClass]="transaction.amountTransferred > 0 ? 'verde' : 'vermelho'">
+            {{ transaction.amountTransferred | currency:'BRL' }}
           </td>
-          <td>
-            <button class="btn btn-primary" (click)="irParaDetalhes(transacao.id)">
-              Ver detalhes
-            </button>
-          </td>
+          
         </tr>
     </table>  
     </mat-tab>
     <mat-tab *ngIf="!estaCarregando" label="Entrada"> 
       <table  class="table table-hover">
-        <button (click)="paginaAnterior()" [disabled]="page === 1"> Página anterior </button>
-        <button (click)="proximaPagina()"> Próxima página </button>
-        <tr>
-          <th>data</th>
-          <th>lugar</th>
-          <th>valor</th>
+        
+        <tr class="options">
+          <th class="options__list">Data</th>
+          <th class="options__list">Nome</th>
+          <th class="options__list">Valor</th>
         </tr>
       
-        <tr *ngFor="let transacao of extrato">
-          <td>{{ transacao?.data | date }}</td>
-          <td>{{ transacao?.descricao }}</td>
-          <td [ngClass]="transacao?.valor > 0 ? 'verde' : 'vermelho'">
-            {{ transacao?.valor | currency:'BRL' }}
+        <tr class="content" *ngFor="let transaction of listExtract ">
+          <td class="content__list">{{ transaction.transactionDate | date }}</td>
+          <td class="content__list" >{{ transaction.cpfUser }}</td>
+          <td class="content__list" [ngClass]="transaction.amountTransferred > 0 ? 'verde' : 'vermelho'">
+            {{ transaction.amountTransferred | currency:'BRL' }}
           </td>
-          <td>
-            <button class="btn btn-primary" (click)="irParaDetalhes(transacao.id)">
-              Ver detalhes
-            </button>
-          </td>
+          
         </tr>
     </table>
   
     </mat-tab>
-    <mat-tab *ngIf="!estaCarregando" label="Saida">
+    <mat-tab *ngIf="!estaCarregando"  label="Saida">
       <table  class="table table-hover">
-        <button (click)="paginaAnterior()" [disabled]="page === 1"> Página anterior </button>
-        <button (click)="proximaPagina()"> Próxima página </button>
-        <tr>
-          <th>data</th>
-          <th>lugar</th>
-          <th>valor</th>
+        <tr class="options">
+          <th class="options__list">Data</th>
+          <th class="options__list">Nome</th>
+          <th class="options__list">Valor</th>
         </tr>
       
-        <tr *ngFor="let transacao of extrato">
-          <td>{{ transacao?.data | date }}</td>
-          <td>{{ transacao?.descricao }}</td>
-          <td [ngClass]="transacao?.valor > 0 ? 'verde' : 'vermelho'">
-            {{ transacao?.valor | currency:'BRL' }}
+        <tr class="content" *ngFor="let transaction of listExtract">
+          <td class="content__list">{{ transaction.transactionDate | date }}</td>
+          <td class="content__list">{{ transaction.cpfUser }}</td>
+          <td class="content__list" [ngClass]="transaction.amountTransferred > 0 ? 'verde' : 'vermelho'">
+            {{ transaction.amountTransferred | currency:'BRL' }}
           </td>
-          <td>
-            <button class="btn btn-primary" (click)="irParaDetalhes(transacao.id)">
-              Ver detalhes
-            </button>
-          </td>
+          
         </tr>
     </table> 
     </mat-tab>
   </mat-tab-group>
-  
-  <div *ngIf="!estaCarregando" class="button-page-transference">
-    <button mat-raised-button class="example-action-button" (click)="toggleBackground()">Pagina Tranferencia</button>
-  </div>
-  
+
 </div>
 
 
-  
