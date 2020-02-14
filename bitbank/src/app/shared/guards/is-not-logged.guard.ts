@@ -18,6 +18,7 @@ export class IsNotLoggedGuard implements CanActivate {
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     if (!this.authService.isLogged()) {
+
       return true;
     } else {
       this.router.navigate(['extrato']);
