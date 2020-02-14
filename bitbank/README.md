@@ -1,27 +1,51 @@
-# Bitbank
+# Internet Banking Bitbank - Aplicação Front-End
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.24.
+O Bitbank é uma aplicação bancaria que permite realizar transações entre o mesmo banco e outros. Este repositório mantém o aplicativo Front-end desenvolvido no Angular(aplicativo de página única) com typescript, consumindo APIs em NodeJS, que é responsável pela interface do usuário.
 
-## Development server
+## Agradecimentos
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Foram 3 semanas com muito trabalho e dedicação. Toda a equipe da Gama Academy têm uma grande participação nessa conquista e estamos muito agradecidos por todo o apoio e por acreditar em nosso potencial. :-)
 
-## Code scaffolding
+## Características de front-end
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+* Stack usada em produção: Material
+* Stack usada durante o desenvolvimento do aplicativo: Angular, Karma, Jasmine
+* Credenciais de administrador: CPF: 265.054.430-96 /Senha: 459680
+* Link para o Back-End da aplicação: [https://avanade-bitbank.herokuapp.com/]
+* Link para o Front-End da aplicação: [https://bitbank.netlify.com/]
+* Link para o Front-End do repository: [https://github.com/brasilino/bitbank-front-end/tree/develop/bitbank]
 
-## Build
+## Pré-requisitos
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Nenhum pré-requisito de hardware e nenhuma instalação necessária. Esta aplicação funciona 100% online e pode ser acessada em qualquer dispositivo.
 
-## Running unit tests
+## Contribuição
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Sinta-se à vontade para desdobrar / clonar este repositório para examinar mais profundamente as lógicas do nosso aplicativo e contribuir.
+Ao criar esse repositório precisa adicionar todas as dependências necessárias para isso use os seguintes comandos no seu terminal:
 
-## Running end-to-end tests
+```
+$ npm install
+```
+Para iniciar a aplicação no seu navegador
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```
+$ ng serve
+```
+Para executar os testes unitarios
 
-## Further help
+```
+$ ng test
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Observe que você também precisará executar a API para carregar e manter seus dados. Encontre o repositório da API no link abaixo: [https://github.com/tiago-dela-rosa/api-avanade-project]
+
+## Autores e controle de versão
+
+Aplicação Angular desenvolvida por:
+
+**Alan Brasilino - https://github.com/brasilino**
+**Leonardo Oliveira - https://github.com/Leonardo-oliver**
+**Roberto Camacho - https://github.com/camachoroberto**
+
+*Bitbank Version 0.1* - Publicado em 14 de fevereiro de 2020
