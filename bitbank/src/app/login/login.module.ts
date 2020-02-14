@@ -24,7 +24,8 @@ import { LoginComponent } from './login.component';
     MatIconModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule
   ]
 })
 export class LoginModule { }
