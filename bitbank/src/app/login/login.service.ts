@@ -30,7 +30,10 @@ export class LoginService {
     return this.http.post<User>(this.apiUrl + 'api/login', params)
             .pipe(
               delay(2000),
-              tap(user => this.authService.setUser(user))
+              tap((user) => {
+                user.body.balance = (user.body.balance / 100);
+                this.authService.setUser(user);
+              })
             );
   }
 }
