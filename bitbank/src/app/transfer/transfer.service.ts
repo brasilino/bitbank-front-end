@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
+import { User } from '../shared/interfaces/user.interface';
 import { AuthService } from './../shared/services/auth.service';
 import { UserToTransfer } from './user-to-transfer.interface';
 
@@ -19,6 +20,7 @@ export class TransferService {
 
   TOKEN: string;
   apiUrl = environment.API_URL;
+  user: User;
 
   constructor(
     private http: HttpClient,
@@ -26,15 +28,18 @@ export class TransferService {
   ) {
     this.TOKEN = this.authService.getUser().token;
     httpOptions.headers = httpOptions.headers.set('Authorization', 'Bearer ' + this.TOKEN);
+    this.user = authService.getUser();
   }
 
   getUserToTransfer(account: string): Observable<UserToTransfer> {
-    this.apiUrl += '/user/search?filter[numberAccount]=' + account;
-    return this.http.get<UserToTransfer>(this.apiUrl, httpOptions);
+    account = '945801-3';
+    const ulr = this.apiUrl + 'user/search?filter[numberAccount]=' + account;
+    return this.http.get<UserToTransfer>(ulr, httpOptions);
   }
 
-  transfer(params: {}): Observable<UserToTransfer> {
-    return this.http.post<UserToTransfer>(this.apiUrl, params, httpOptions);
+  transfer(params: any): Observable<any> {
+    const ulr = this.apiUrl + `user/${this.user.body._id}/transactions`;
+    return this.http.post(ulr, params, httpOptions);
   }
 
 }

@@ -100,14 +100,24 @@ export class TransferComponent implements OnInit {
     }
   }
 
-  transferTo(stepper: MatStepper, account: string) {
-    console.log('Realizar transferência!');
-    this.loading = true;
-    setTimeout(() => {
-      this.loading = false;
-      this.editable = false;
-      stepper.next();
-    }, 3000);
+  transferTo(stepper: MatStepper) {
+
+    const params = {
+      numberAccount: this.userToTransfer.numberAccount,
+      amountTransferred: 1000, //this.secondFormGroup.value.amountToTransfer,
+      cpf: this.userToTransfer.cpf,
+    };
+
+    this.transferService.transfer(params)
+      .subscribe((response) => {
+        console.log(response);
+        this.loading = false;
+        this.editable = false;
+        stepper.next();
+      }, error => {
+        this.loading = false;
+        console.log(error.status);
+      });
   }
 
 }
