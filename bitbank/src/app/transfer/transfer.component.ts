@@ -63,7 +63,7 @@ export class TransferComponent implements OnInit {
     this.secondFormGroup = this.formBuilder.group({
       amountToTransfer: ['', [
         Validators.required,
-        Validators.min(10),
+        Validators.min(100),
         Validators.max(100000)
       ]]
     });
@@ -128,6 +128,8 @@ export class TransferComponent implements OnInit {
         this.loading = false;
         this.editable = false;
         stepper.next();
+        this.user.body.balance = (response.data.newBalance / 100);
+        this.authService.setUser(this.user);
       }, error => {
         this.loading = false;
         console.log(error.status);
@@ -139,8 +141,10 @@ export class TransferComponent implements OnInit {
   }
 
   convertReaisToCents(amount: string) {
+    console.log(amount);
     const cents = (Number(amount) * 100);
-    return parseFloat(String(cents)).toFixed(0);
+    console.log(cents)
+    return Number(String(cents).replace('.', ''));
   }
 
 }

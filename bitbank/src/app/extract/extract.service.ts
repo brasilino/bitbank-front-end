@@ -27,14 +27,13 @@ export class ExtractService {
     private http: HttpClient,
     private authService: AuthService
   ) {
-    // this.TOKEN = this.authService.getUser().token;
+    this.TOKEN = this.authService.getUser().token;
     httpOptions.headers = httpOptions.headers.set('Authorization', 'Bearer ' + this.TOKEN);
     this.user = this.authService.getUser();
   }
 
-  getExtract(): Observable<Extract> {
-
-    return this.http.get<Extract>(`${this.apiUrl}user/${this.user.body._id}/transactions`, httpOptions);
+  getExtract(): Observable<Extract[]> {
+    return this.http.get<Extract[]>(`${this.apiUrl}user/${this.user.body._id}/transactions`, httpOptions);
   }
 
   getExtractPage(page: number): Observable<Extract[]> {

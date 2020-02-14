@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
   matcher: MyErrorStateMatcher;
   error: string | null;
+  loading = false;
 
   constructor(
     private router: Router,
@@ -36,6 +37,8 @@ export class LoginComponent implements OnInit {
       ]),
       password: new FormControl('', [
         Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(6)
       ]),
     });
 
@@ -52,21 +55,29 @@ export class LoginComponent implements OnInit {
     this.loginSubmitted = true;
     if (this.form.valid) {
 
-      const cpf = this.form.value.cpf;
+      const cpf = this.formatCpf(this.form.value.cpf);
       const password = this.form.value.password;
       const params = {cpf, password};
+
+      this.loading = true;
 
       this.loginService.login(params)
         .subscribe(response => {
           console.log(response);
-          this.router.navigate(['extrato']);
+          this.loading = false;
+          this.router.navigate(['/extrato']);
         }, error => {
+          this.loading = false;
           this.form.setValue({password: '', cpf});
           // Verificar o status para mensagem de erro
           // retorno 0 quer dizer q o serviço do nodejs parou
           this.error = 'Usuário ou senha inválido.';
         });
     }
+  }
+
+  formatCpf(cpf) {
+    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
   }
 
 }

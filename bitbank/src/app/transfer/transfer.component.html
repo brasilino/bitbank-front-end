@@ -48,7 +48,7 @@
             <mat-error 
                 *ngIf="secondFormGroup.get('amountToTransfer').hasError('min')
                 || secondFormGroup.get('amountToTransfer').hasError('max')">
-                Escolha um valor entre R$ 10,00 e R$ 100.000,00
+                Escolha um valor entre R$ 100,00 e R$ 100.000,00
             </mat-error>
         </mat-form-field>
         <p class="saldo"><small>Saldo disponível: R$ 56,00</small></p>
@@ -170,7 +170,7 @@
                         <mat-error 
                             *ngIf="secondFormGroup.get('amountToTransfer').hasError('min')
                             || secondFormGroup.get('amountToTransfer').hasError('max')">
-                            Escolha um valor entre R$ 10,00 e R$ 100.000,00
+                            Escolha um valor entre R$ 100,00 e R$ 100.000,00
                         </mat-error>
                     </mat-form-field>
                     <p class="saldo"><small>Saldo disponível: {{ user.body.balance | currency:'BRL' }}</small></p>
@@ -258,7 +258,7 @@
                         <mat-error 
                             *ngIf="secondFormGroup.get('amountToTransfer').hasError('min')
                             || secondFormGroup.get('amountToTransfer').hasError('max')">
-                            Escolha um valor entre R$ 10,00 e R$ 100.000,00
+                            Escolha um valor entre R$ 100,00 e R$ 100.000,00
                         </mat-error>
                     </mat-form-field>
                     <p class="saldo"><small>Saldo disponível: R$ {{ user.body.balance | currency:'BRL' }}</small></p>

@@ -1,5 +1,13 @@
 
 <app-header></app-header>
+<mat-progress-bar
+    *ngIf="loading"
+    class="example-margin"
+    color="primary"
+    mode="indeterminate"
+    value="50"
+    bufferValue="75">
+</mat-progress-bar>
 
 <div class="swing"  *ngIf="!estaCarregando">
     <span *ngFor="let valor of saldo" >Saldo: 2000 {{valor.body}} </span>

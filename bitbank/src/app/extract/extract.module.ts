@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MatProgressBarModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 
@@ -20,7 +21,8 @@ import { TransactionDetailComponent } from './transaction-detail/transaction-det
     ExtractRoutingModule,
     MatTabsModule,
     SharedModule,
-    MatButtonModule
+    MatButtonModule,
+    MatProgressBarModule
 
   ],
   exports: [

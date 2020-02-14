@@ -6,3 +6,4 @@ export interface Extract {
   amountTransferred: number;
 }
 
+

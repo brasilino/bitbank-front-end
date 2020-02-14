@@ -1,3 +1,11 @@
+<!-- <mat-progress-bar
+    *ngIf="loading"
+    class="example-margin"
+    color="primary"
+    mode="indeterminate"
+    value="50"
+    bufferValue="75">
+</mat-progress-bar> -->
 <mat-card>
     <mat-card-title>Login</mat-card-title>
     <mat-card-content>
@@ -5,7 +13,7 @@
         <form [formGroup]="form" (ngSubmit)="login(form.value)">
             <div id="cpf-container">
                 <mat-form-field >
-                    <input matInput formControlName="cpf" placeholder="CPF" 
+                    <input matInput formControlName="cpf" mask="000.000.000-00" placeholder="CPF" 
                         (keyup)="validateForm()"
                         [errorStateMatcher]="matcher">
                     <mat-icon matSuffix>perm_identity</mat-icon>
@@ -16,12 +24,17 @@
             </div>
             <div id="password-container">
                 <mat-form-field >
-                    <input matInput formControlName="password" placeholder="Senha" 
+                    <input matInput formControlName="password" mask="000000" placeholder="Senha" 
                         (keyup)="validateForm()"
                         [errorStateMatcher]="matcher">
                     <mat-icon matSuffix>vpn_key</mat-icon>
                     <mat-error *ngIf="form.get('password').hasError('required')" id="password-error-msg" >
                         Campo Obrigatório
+                    </mat-error>
+                    <mat-error 
+                        *ngIf="form.get('password').hasError('minlength')
+                        || form.get('password').hasError('maxlength')">
+                        A senha deve possuir 6 digitos númericos
                     </mat-error>
                 </mat-form-field>
             </div>

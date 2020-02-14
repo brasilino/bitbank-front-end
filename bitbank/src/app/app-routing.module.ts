@@ -34,7 +34,8 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'nao-encontrado'
+    redirectTo: 'nao-encontrado',
+    canActivate: [IsLoggedGuard]
   }
 ];
 
