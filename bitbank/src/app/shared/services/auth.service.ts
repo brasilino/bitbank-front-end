@@ -33,7 +33,7 @@ export class AuthService {
     return this.user;
   }
 
-  isLoggedIn(): boolean {
+  isLogged(): boolean {
     return this.getUser() ? true : false;
   }
 

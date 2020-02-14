@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ExtractComponent } from './extract/extract.component';
 import { IsLoggedGuard } from './shared/guards/is-logged.guard';
 import { IsNotLoggedGuard } from './shared/guards/is-not-logged.guard';
 
@@ -14,8 +13,8 @@ const routes: Routes = [
   },
   {
     path: 'extrato',
-    component: ExtractComponent,
-    // canActivate: [IsLoggedGuard]
+    loadChildren: () => import('./extract/extract.module').then(m => m.ExtractModule),
+    canActivate: [IsLoggedGuard]
   },
   {
     path: 'transferencia',

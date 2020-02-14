@@ -1,1 +1,97 @@
-<p>extract works!</p>
+
+<app-header></app-header>
+
+<div class="swing"  *ngIf="!estaCarregando">
+    <span *ngFor="let valor of saldo" >Saldo: 2000 {{valor.body}} </span>
+</div>
+<div class="spinner-border" *ngIf="estaCarregando">
+  <span class="sr-only">Carregando...</span>
+</div>
+<!-- <table *ngIf="!estaCarregando" class="table table-hover">
+    <button (click)="paginaAnterior()" [disabled]="page === 1"> Página anterior </button>
+    <button (click)="proximaPagina()"> Próxima página </button>
+    <tr>
+      <th>tudo</th>
+      <th>Entratada</th>
+      <th>Saida</th>
+      <th>futuro</th>
+    </tr>
+  
+    <tr *ngFor="let transaction of extrato">
+      <td>{{ transaction?.id }}</td>
+      <td>{{ transaction?.data | date }}</td>
+      <td>{{ transaction?.descricao }}</td>
+      <td [ngClass]="transaction?.valor > 0 ? 'verde' : 'vermelho'">
+        {{ transaction?.valor | currency:'BRL' }}
+      </td>
+      <td>
+        <button class="btn btn-primary" (click)="irParaDetalhes(transaction.id)">
+          Ver detalhes
+        </button>
+      </td>
+    </tr>
+</table> -->
+
+<div class="container">
+  <mat-tab-group (selectedTabChange)="onSelectedTabChange($event)" mat-stretch-tabs class=" example-stretched-tabs mat-elevation-z4">
+    <mat-tab *ngIf="!estaCarregando" label="Tudo"> 
+      <table class="table table-hover">
+        
+        <tr class="options">
+          <th class="options__list">Data</th>
+          <th class="options__list">Nome</th>
+          <th class="options__list">Valor</th>
+        </tr>
+        <tr class="content" *ngFor="let transaction of listExtract ">
+          <td class="content__list">{{ transaction.transactionDate | date }}</td>
+          <td class="content__list">{{ transaction.cpfUser }}</td>
+          <td class="content__list" [ngClass]="transaction.amountTransferred > 0 ? 'verde' : 'vermelho'">
+            {{ transaction.amountTransferred | currency:'BRL' }}
+          </td>
+          
+        </tr>
+    </table>  
+    </mat-tab>
+    <mat-tab *ngIf="!estaCarregando" label="Entrada"> 
+      <table  class="table table-hover">
+        
+        <tr class="options">
+          <th class="options__list">Data</th>
+          <th class="options__list">Nome</th>
+          <th class="options__list">Valor</th>
+        </tr>
+      
+        <tr class="content" *ngFor="let transaction of listExtract ">
+          <td class="content__list">{{ transaction.transactionDate | date }}</td>
+          <td class="content__list" >{{ transaction.cpfUser }}</td>
+          <td class="content__list" [ngClass]="transaction.amountTransferred > 0 ? 'verde' : 'vermelho'">
+            {{ transaction.amountTransferred | currency:'BRL' }}
+          </td>
+          
+        </tr>
+    </table>
+  
+    </mat-tab>
+    <mat-tab *ngIf="!estaCarregando"  label="Saida">
+      <table  class="table table-hover">
+        <tr class="options">
+          <th class="options__list">Data</th>
+          <th class="options__list">Nome</th>
+          <th class="options__list">Valor</th>
+        </tr>
+      
+        <tr class="content" *ngFor="let transaction of listExtract">
+          <td class="content__list">{{ transaction.transactionDate | date }}</td>
+          <td class="content__list">{{ transaction.cpfUser }}</td>
+          <td class="content__list" [ngClass]="transaction.amountTransferred > 0 ? 'verde' : 'vermelho'">
+            {{ transaction.amountTransferred | currency:'BRL' }}
+          </td>
+          
+        </tr>
+    </table> 
+    </mat-tab>
+  </mat-tab-group>
+
+</div>
+
+

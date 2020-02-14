@@ -1,0 +1,14 @@
+
+<div *ngIf="estaCarregando; else conteudo">
+    <h2>Aguarde </h2>
+  </div>
+  
+  <ng-template #conteudo>
+
+    <ul>
+      <li>Id: {{ transacao.id }}</li>
+      <li>Descrição: {{ transacao.descricao }}</li>
+      <li>Data: {{ transacao.data }}</li>
+      <li>Valor: {{ transacao.valor }}</li>
+    </ul>
+  </ng-template>

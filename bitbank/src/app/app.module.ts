@@ -9,7 +9,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ExtractComponent } from './extract/extract.component';
+
 
 
 registerLocaleData(localePt, 'pt');
@@ -17,7 +17,6 @@ registerLocaleData(localePt, 'pt');
 @NgModule({
   declarations: [
     AppComponent,
-    ExtractComponent
   ],
   imports: [
     BrowserModule,
