@@ -1,6 +1,6 @@
 export const validUser = {
-    cpf: '00132126',
-    password: '123456'
+    cpf: '39401951896',
+    password: '123'
 };
 
 export const blankUser = {

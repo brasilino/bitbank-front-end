@@ -10,8 +10,10 @@ import { MyErrorStateMatcher } from './my-error-state-matcher';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+
 export class LoginComponent implements OnInit {
 
+  loginSubmitted = false;
   form: FormGroup;
   matcher: MyErrorStateMatcher;
   error: string | null;
@@ -46,8 +48,8 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  login() {
-
+  login(value) {
+    this.loginSubmitted = true;
     if (this.form.valid) {
 
       const cpf = this.form.value.cpf;
